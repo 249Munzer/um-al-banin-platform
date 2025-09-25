@@ -1,0 +1,159 @@
+import React from 'react';
+import { View, StyleSheet, ScrollView, Alert } from 'react-native';
+import { Layout, Text, Card, Button, Icon } from '@ui-kitten/components';
+import { useRouter } from 'expo-router';
+
+const AdminDashboard = () => {
+  const router = useRouter();
+
+  const menuItems = [
+    {
+      title: 'إدارة المستخدمين',
+      icon: 'people-outline',
+      route: '/users',
+      description: 'إضافة وتعديل وحذف المستخدمين'
+    },
+    {
+      title: 'إدارة المواد',
+      icon: 'book-outline',
+      route: '/subjects',
+      description: 'إدارة المواد الدراسية والمناهج'
+    },
+    {
+      title: 'إدارة الرسوم',
+      icon: 'credit-card-outline',
+      route: '/fees',
+      description: 'إدارة الرسوم والمدفوعات'
+    },
+    {
+      title: 'التقارير',
+      icon: 'bar-chart-outline',
+      route: '/reports',
+      description: 'عرض التقارير والإحصائيات'
+    },
+    {
+      title: 'إحصائيات المواد',
+      icon: 'trending-up-outline',
+      route: '/subjects-statistics',
+      description: 'إحصائيات تفصيلية للمواد'
+    },
+    {
+      title: 'التحليلات المتقدمة',
+      icon: 'analytics-outline',
+      route: '/advanced-analytics-phase3',
+      description: 'تحليلات متقدمة وتوقعات'
+    }
+  ];
+
+  const handleMenuPress = (route: string) => {
+    router.push(route);
+  };
+
+  return (
+    <Layout style={styles.container}>
+      <ScrollView style={styles.scrollView}>
+        <View style={styles.header}>
+          <Icon name="shield-checkmark-outline" style={styles.headerIcon} fill="#388E3C" />
+          <Text category="h4" style={styles.headerTitle}>
+            لوحة تحكم المدير
+          </Text>
+          <Text category="p1" style={styles.headerSubtitle}>
+            مرحباً بك في نظام إدارة منصة أم البنين التعليمية
+          </Text>
+        </View>
+
+        <View style={styles.menuGrid}>
+          {menuItems.map((item, index) => (
+            <Card key={index} style={styles.menuCard}>
+              <View style={styles.menuItem}>
+                <Icon name={item.icon} style={styles.menuIcon} fill="#388E3C" />
+                <View style={styles.menuContent}>
+                  <Text category="h6" style={styles.menuTitle}>
+                    {item.title}
+                  </Text>
+                  <Text category="p2" style={styles.menuDescription}>
+                    {item.description}
+                  </Text>
+                </View>
+                <Button
+                  style={styles.menuButton}
+                  size="small"
+                  onPress={() => handleMenuPress(item.route)}
+                >
+                  دخول
+                </Button>
+              </View>
+            </Card>
+          ))}
+        </View>
+      </ScrollView>
+    </Layout>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#F0F7F0',
+  },
+  scrollView: {
+    flex: 1,
+  },
+  header: {
+    alignItems: 'center',
+    padding: 30,
+    backgroundColor: '#E8F5E8',
+    marginBottom: 20,
+  },
+  headerIcon: {
+    width: 60,
+    height: 60,
+    marginBottom: 15,
+  },
+  headerTitle: {
+    fontWeight: 'bold',
+    marginBottom: 10,
+    color: '#2E7D32',
+  },
+  headerSubtitle: {
+    textAlign: 'center',
+    color: '#388E3C',
+    lineHeight: 20,
+  },
+  menuGrid: {
+    padding: 15,
+  },
+  menuCard: {
+    marginBottom: 15,
+    borderRadius: 12,
+  },
+  menuItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 15,
+  },
+  menuIcon: {
+    width: 40,
+    height: 40,
+    marginRight: 15,
+  },
+  menuContent: {
+    flex: 1,
+    marginRight: 15,
+  },
+  menuTitle: {
+    fontWeight: '600',
+    marginBottom: 5,
+    color: '#2E7D32',
+  },
+  menuDescription: {
+    color: '#666',
+    fontSize: 12,
+  },
+  menuButton: {
+    backgroundColor: '#388E3C',
+    borderColor: '#388E3C',
+  },
+});
+
+export default AdminDashboard;
